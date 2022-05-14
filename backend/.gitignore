@@ -153,9 +153,9 @@ dmypy.json
 cython_debug/
 
 # VAD data 
-VAD/data/*
+VAD_experimental/data/*
 
 # IR weights and configurations
-IR/Human_Detection_from_Infrared_Images/weights/*
-IR/Human_Detection_from_Infrared_Images/cfg/*
+IR_experimental/Human_Detection_from_Infrared_Images/weights/*
+IR_experimental/Human_Detection_from_Infrared_Images/cfg/*
 
