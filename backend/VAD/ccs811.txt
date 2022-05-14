@@ -1,0 +1,11 @@
+[Unit]
+Description=ccs811
+
+[Service]
+Type=simple
+User=ccs811
+ExecStart=python3 /home/nanocat/ccs811/simpletest.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target

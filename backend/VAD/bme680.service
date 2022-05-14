@@ -1,0 +1,11 @@
+[Unit]
+Description=bme680
+
+[Service]
+Type=simple
+User=bme680
+ExecStart=python3 /home/nanocat/bme680/indoor-air-quality.py
+Restart=on-failure
+
+[Install]
+WantedBy=default.target
