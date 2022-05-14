@@ -158,3 +158,4 @@ VAD/data/*
 # IR weights and configurations
 IR/Human_Detection_from_Infrared_Images/weights/*
 IR/Human_Detection_from_Infrared_Images/cfg/*
+
