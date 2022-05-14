@@ -19,3 +19,12 @@ app.add_middleware(
 @app.get("/")
 async def root():
     return {"Hello, this is HTX Capstone 2022"}
+
+@app.get("/sensors")
+async def read_sensor():
+    return {"CO2":0.8, "IR":5, "Microphone": 90}
+
+@app.get("/algo")
+async def read_algo():
+    # probability?
+    return {0.9}
