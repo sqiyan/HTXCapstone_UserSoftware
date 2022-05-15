@@ -158,4 +158,6 @@ VAD_experimental/data/*
 # IR weights and configurations
 IR_experimental/Human_Detection_from_Infrared_Images/weights/*
 IR_experimental/Human_Detection_from_Infrared_Images/cfg/*
+IR_experimental/Human_Detection_from_Infrared_Images/Tools/*
 
+*.h5
