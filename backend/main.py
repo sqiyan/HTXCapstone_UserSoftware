@@ -22,7 +22,7 @@ async def root():
 
 @app.get("/sensors/CO2")
 async def read_CO2():
-    # in (insert units here)
+    # in (insert units here) - float
     return {0.8}
 
 @app.get("/sensors/IR")
@@ -42,4 +42,4 @@ async def read_algo():
 
 @app.get("/movement_control")
 async def send_control():
-    return {("forward",0)}
+    return {("forward",1.0)}
