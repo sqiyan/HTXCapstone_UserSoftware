@@ -7,7 +7,7 @@ const Message = () => {
 
     const getMessage = async () => {
         try{
-            let res = await axios.get('http://127.0.0.1:8000/movement_control');
+            let res = await axios.get('http://127.0.0.1:8000/sensors/CO2');
             let result = res.data
             console.log(result)
             setResult(result)

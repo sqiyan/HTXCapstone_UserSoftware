@@ -1,5 +1,11 @@
+import string
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import movement_control
+from pydantic import BaseModel
+
+class Control(BaseModel):
+    control: str
 
 app = FastAPI()
 
@@ -14,7 +20,6 @@ app.add_middleware(
     allow_methods=["*"],
     allow_headers=["*"],
 )
-
 
 @app.get("/")
 async def root():
@@ -40,6 +45,13 @@ async def read_algo():
     # probability?
     return {0.9}
 
-@app.get("/movement_control")
-async def send_control():
-    return {("forward",1.0)}
+# @app.get("/movement_control")
+# async def send_control():
+
+#     return {("forward",1.0)}
+
+@app.post("/movement_control")
+async def send_control(control: Control):
+    movement = movement_control.get(control.control)
+    print("received control:",movement)
+    return {movement}
