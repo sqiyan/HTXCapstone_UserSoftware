@@ -1,8 +1,13 @@
-from multiprocessing import Value
-
-import roslibpy
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+import movement_control
+from pydantic import BaseModel
+from multiprocessing import Value
+import roslibpy
+import string
+
+class Control(BaseModel):
+    control: str
 
 from ros_utils import insert_value, setup_ros, teardown_ros
 
@@ -52,7 +57,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-
 @app.get("/")
 async def root():
     return {"Hello, this is HTX Capstone 2022"}
@@ -65,7 +69,6 @@ async def read_CO2():
         return {0.8}
 
     return co2_val.value
-
 
 @app.get("/sensors/IR")
 async def read_IR():
@@ -93,11 +96,9 @@ async def read_algo():
 
     return algo_pred_val.value
 
-
 @app.get("/movement_control")
-async def send_control():
-
-    data = None
+async def send_control(control: Control):
+    data = movement_control.get(control.control)
     
     msg = {"pan": 0, "move": 0, "home_srm": False}
     msg[data[0]] = data[1]
