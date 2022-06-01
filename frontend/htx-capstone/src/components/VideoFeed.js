@@ -1,4 +1,5 @@
 import React, { useEffect, useRef } from "react";
+import './style.scss'
 
 
 const VideoFeed = () => {
@@ -7,7 +8,7 @@ const VideoFeed = () => {
     var videoFeed = null
 
     useEffect(() => {
-        // getVideo();
+        getVideo();
     }, [videoRef]);
 
     const getVideo = () => {
@@ -30,10 +31,10 @@ const VideoFeed = () => {
 
     return (
         <div>
-            <div>
+            <div className="section">
                 <video className="fullscreen" ref={videoRef} />
             </div>
-            <div>
+            <div className="section">
                 <button onClick={toggleCamera} >Turn Off Camera</button>
             </div>
         </div>
