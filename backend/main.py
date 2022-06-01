@@ -54,4 +54,4 @@ async def read_algo():
 async def send_control(control: Control):
     movement = movement_control.get(control.control)
     print("received control:",movement)
-    return {movement}
+    return {movement}                
