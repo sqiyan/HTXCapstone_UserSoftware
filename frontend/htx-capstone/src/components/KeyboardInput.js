@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from 'react'
 import axios from 'axios'
+import './style.scss'
 
 const KeyboardInput = () => {
 
@@ -45,7 +46,7 @@ const KeyboardInput = () => {
       
     return(
         <div>
-            <div>
+            <div className='section'>
                 {key != null ? key+" has been pressed" : null }
             </div>
         </div>
