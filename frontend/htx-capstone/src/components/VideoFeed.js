@@ -27,7 +27,7 @@ const VideoFeed = () => {
 
         // to edit device Id after setting up camera on HTX laptop
         navigator.mediaDevices
-            .getUserMedia({ video: { deviceId: "229f22947cc884ca8b920c04d0b0cbe5c53d418700f0682fd3f2da7392be69a6"
+            .getUserMedia({ video: { deviceId: "pkZEps+1ZGaXwd7ywMmbLG0W7DF1prKJsUeTVFeDTvM"
 , width: window.screen.width, height: window.screen.height } })
             .then(stream => {
             let video = videoRef.current;
