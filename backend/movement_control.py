@@ -1,5 +1,5 @@
 def get(control):
-    step = 1.0
+    step = 5.0
     movement = ""
 
     if control == "move forward":
@@ -9,8 +9,8 @@ def get(control):
         step = -step
     elif control == "pan left":
         movement = "pan"
+        step = -step
     elif control == "pan right":
         movement = "pan"
-        step = -step
 
     return (movement, step)
