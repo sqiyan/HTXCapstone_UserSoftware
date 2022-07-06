@@ -9,10 +9,10 @@ import { fontWeight } from '@mui/system';
 function App() {
   return (
     <div className="App">
-        <AppBar position="static">
-          <Toolbar>
+        <AppBar position="fixed">
+          <Toolbar variant="dense" sx={{backgroundColor:"#060028", height: "100%"}}>
             <Typography fontWeight={800}> 
-              LISA Robot
+              LISA ROBOT
             </Typography>
             <Button color="inherit" sx={{marginLeft:"auto", fontWeight:"800"}}>
               Settings

@@ -47,7 +47,7 @@ const VideoFeed = () => {
     return (
         <div>
             <div className="section">
-                <video className="fullscreen" ref={videoRef} />
+                <video width="100%" ref={videoRef} />
             </div>
             <div className="section">
                 <button onClick={toggleCamera} >Turn Off Camera</button>

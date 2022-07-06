@@ -1,5 +1,9 @@
+import json
+import asyncio
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi import WebSocket
 import movement_control
 from pydantic import BaseModel
 from multiprocessing import Value
@@ -9,6 +13,10 @@ from ros_utils import insert_value, setup_ros, teardown_ros
 TEST_WITHOUT_ROS = False
 
 app = FastAPI()
+
+# Fake JSON dataset to simulate real-time data changes
+with open('fakedataset.json', 'r') as file:
+    data_change = iter(json.loads(file.read()))
 
 # To add new clients
 # Initialise them here
@@ -107,3 +115,12 @@ async def send_control(control: Control):
         print('Sending message...', msg)
 
     return msg
+
+@app.websocket("/ws")
+async def websocket_endpoint(websocket: WebSocket):
+    await websocket.accept()
+    while True:
+        await asyncio.sleep(0.1)
+        payload = next(data_change)
+        # change to insert value? 
+        await websocket.send_json(payload)
