@@ -64,6 +64,10 @@ const OperatorView = () => {
         <div className='OperatorView__container'>
             <TopBar />
             <KeyboardInput />
+            <Grid>
+              <p>Connection status: <span id="status"></span></p>
+              <p>Last CO2 reading received: <span id="msg"></span></p>
+            </Grid>
             <Grid className='section' container spacing={2} sx={{marginTop:"8px"}}>
                 <Grid item xs={7} sx={{fontWeight:"700", marginLeft:"-30px"}}>
                     <VideoFeed />
@@ -77,8 +81,6 @@ const OperatorView = () => {
             {/* <div>
             <LineChart chartData={userData} />
             </div> */}
-            <p>Connection status: <span id="status"></span></p>
-            <p>Last CO2 reading received: <span id="msg"></span></p>
         </div>
     )
 }
