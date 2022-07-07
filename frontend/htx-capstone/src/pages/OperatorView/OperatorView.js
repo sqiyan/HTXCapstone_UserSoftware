@@ -6,6 +6,7 @@ import DataCharts from '../../components/DataCharts'
 import LineChart from '../../components/LineChart'
 import { Grid, Item } from '@mui/material';
 import { UserData } from "../../Data";
+import ROSLIB from 'roslib';
 import './style.scss'
 
 const OperatorView = () => {
@@ -31,6 +32,32 @@ const OperatorView = () => {
           },
         ],
       });
+
+    var ros = new ROSLIB.Ros({
+    url : 'ws://localhost:9090'
+    });
+
+    ros.on('connection', function() {
+    document.getElementById("status").innerHTML = "Connected";
+    });
+
+    ros.on('error', function(error) {
+    document.getElementById("status").innerHTML = "Error";
+    });
+
+    ros.on('close', function() {
+    document.getElementById("status").innerHTML = "Closed";
+    });
+
+    var CO2_listener = new ROSLIB.Topic({
+    ros : ros,
+    name : '/sensors/co2',
+    messageType : 'sensors/CO2'
+    });
+
+    CO2_listener.subscribe(function(m) {
+    document.getElementById("msg").innerHTML = m.data;
+    });
     
 
     return(
@@ -50,6 +77,8 @@ const OperatorView = () => {
             {/* <div>
             <LineChart chartData={userData} />
             </div> */}
+            <p>Connection status: <span id="status"></span></p>
+            <p>Last CO2 reading received: <span id="msg"></span></p>
         </div>
     )
 }
