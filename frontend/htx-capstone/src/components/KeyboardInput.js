@@ -46,9 +46,9 @@ const KeyboardInput = () => {
       
     return(
         <div>
-            {/* <div className='section'>
+            <div className='section'>
                 {key != null ? key+" has been pressed" : null }
-            </div> */}
+            </div>
         </div>
     )
 

@@ -15,8 +15,8 @@ TEST_WITHOUT_ROS = False
 app = FastAPI()
 
 # Fake JSON dataset to simulate real-time data changes
-with open('fakedataset.json', 'r') as file:
-    data_change = iter(json.loads(file.read()))
+# with open('fakedataset.json', 'r') as file:
+#     data_change = iter(json.loads(file.read()))
 
 # To add new clients
 # Initialise them here
@@ -116,11 +116,11 @@ async def send_control(control: Control):
 
     return msg
 
-@app.websocket("/ws")
-async def websocket_endpoint(websocket: WebSocket):
-    await websocket.accept()
-    while True:
-        await asyncio.sleep(0.1)
-        payload = next(data_change)
-        # change to insert value? 
-        await websocket.send_json(payload)
+# @app.websocket("/ws")
+# async def websocket_endpoint(websocket: WebSocket):
+#     await websocket.accept()
+#     while True:
+#         await asyncio.sleep(0.1)
+#         payload = next(data_change)
+#         # change to insert value? 
+#         await websocket.send_json(payload)
