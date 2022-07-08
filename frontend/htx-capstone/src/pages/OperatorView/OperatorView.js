@@ -37,11 +37,11 @@ const OperatorView = () => {
         <div className='OperatorView__container'>
             <TopBar />
             <KeyboardInput />
-            <Grid className='section' container spacing={2} sx={{marginTop:"8px"}}>
-                <Grid item xs={7} sx={{fontWeight:"700", marginLeft:"-30px"}}>
+            <Grid className='section' container spacing={2} sx={{marginTop:"24px"}}>
+                <Grid item xs={9} sx={{fontWeight:"700", marginLeft:"-30px"}}>
                     <VideoFeed />
                 </Grid>
-                <Grid item xs={5} >
+                <Grid item xs={3} >
                     <DataCharts chartData={userData} />
                 </Grid>
             </Grid>

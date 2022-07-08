@@ -5,7 +5,7 @@ import { Chart as ChartJS } from "chart.js/auto";
 function LineChart({ chartData }) {
 
     const options = {
-        aspectRatio: 1.2,
+        aspectRatio: 1.8,
         scales: {
           x: {
             ticks: {
