@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Grid, Item } from '@mui/material';
 import '../style.scss';
 
-const TopBar = () => {
+const TopBar = ({CO2}) => {
 
     return(
         <div className='top-bar'>
@@ -17,7 +17,7 @@ const TopBar = () => {
                     SOUND:
                 </Grid>
                 <Grid item xs={4}>
-                    CO2:
+                    CO2: {CO2}
                 </Grid>
             </Grid>
         </div>

@@ -14,6 +14,8 @@ const OperatorView = () => {
     const sampleData = [1, 3, 7, 10, 13, 12, 9, 8, 10, 15, 18]
     var result = 0
 
+    const [CO2_data, setCO2_data] = useState(0)
+
     const [userData, setUserData] = useState({
         labels: UserData.map((data) => data.year),
         datasets: [
@@ -34,46 +36,60 @@ const OperatorView = () => {
       });
 
     var ros = new ROSLIB.Ros({
-    url : 'ws://localhost:9090'
+      url : 'ws://localhost:9090'
     });
 
     ros.on('connection', function() {
-    document.getElementById("status").innerHTML = "Connected";
+      document.getElementById("status").innerHTML = "Connected";
     });
 
     ros.on('error', function(error) {
-    document.getElementById("status").innerHTML = "Error";
+      document.getElementById("status").innerHTML = "Error";
     });
 
     ros.on('close', function() {
-    document.getElementById("status").innerHTML = "Closed";
+      document.getElementById("status").innerHTML = "Closed";
     });
 
     var CO2_listener = new ROSLIB.Topic({
-    ros : ros,
-    name : '/sensors/co2',
-    messageType : 'sensors/CO2'
+      ros : ros,
+      name : '/sensors/co2',
+      messageType : 'sensors/CO2'
     });
 
     CO2_listener.subscribe(function(m) {
-    document.getElementById("msg").innerHTML = m.data;
+      console.log("CO2",m.header.stamp.secs)
+      setCO2_data(m.co2_equivalent)
+
+      document.getElementById("CO2").innerHTML = m.co2_equivalent;
     });
+
+    var mic_listener = new ROSLIB.Topic({
+        ros : ros,
+        name : '/sensors/mic',
+        messageType : 'sensors/mic' // msg type to be updated after JK's implementation
+    });
+  
+    mic_listener.subscribe(function(m) {
+      document.getElementById("mic").innerHTML = m.data;
+    });  
     
 
     return(
         <div className='OperatorView__container'>
-            <TopBar />
+            <TopBar CO2={CO2_data}/>
             <KeyboardInput />
             <Grid>
               <p>Connection status: <span id="status"></span></p>
-              <p>Last CO2 reading received: <span id="msg"></span></p>
+              <p>Last CO2 reading received: <span id="CO2"></span></p>
+              <p>Last Sound reading received: <span id="mic"></span></p>
             </Grid>
             <Grid className='section' container spacing={2} sx={{marginTop:"8px"}}>
                 <Grid item xs={7} sx={{fontWeight:"700", marginLeft:"-30px"}}>
                     <VideoFeed />
                 </Grid>
                 <Grid item xs={5} >
-                    <DataCharts chartData={userData} />
+                    <DataCharts chartData={userData} CO2={CO2_data} />
                 </Grid>
             </Grid>
             {/* <VideoFeed />

@@ -2,7 +2,9 @@ import React from "react";
 import { Grid, Item } from '@mui/material';
 import LineChart from "./LineChart";
 
-const DataCharts = ({chartData})  => {
+const DataCharts = ({chartData, CO2})  => {
+
+    
 
     return(
         <div>
