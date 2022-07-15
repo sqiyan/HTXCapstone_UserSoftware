@@ -2,7 +2,7 @@ import React, {useEffect, useState} from 'react'
 import { Grid, Item } from '@mui/material';
 import '../style.scss';
 
-const TopBar = ({CO2}) => {
+const TopBar = ({CO2, Sound, Algo}) => {
 
     return(
         <div className='top-bar'>
@@ -11,10 +11,10 @@ const TopBar = ({CO2}) => {
             </div> */}
             <Grid className='section' container spacing={2} sx={{marginTop:"48px", fontSize:"22px"}}>
                 <Grid item xs={4} sx={{fontWeight:"700"}}>
-                    NO HUMAN
+                    {Algo ? !0 : "NO HUMAN"}
                 </Grid>
                 <Grid item xs={4}>
-                    SOUND:
+                    SOUND: {Sound}
                 </Grid>
                 <Grid item xs={4}>
                     CO2: {CO2}

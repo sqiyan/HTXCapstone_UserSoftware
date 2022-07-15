@@ -2,8 +2,9 @@ import React, { useEffect, useRef } from "react";
 import './style.scss'
 
 
-const VideoFeed = () => {
+const VideoFeed = ({imageData}) => {
 
+    // DEPRECATED METHOD: now pulling image stream directly from ROS
     const videoRef = useRef(null);
     var videoFeed = null
 
@@ -14,20 +15,20 @@ const VideoFeed = () => {
     const getVideo = () => {
         
         // List cameras and microphones.
-        // navigator.mediaDevices.enumerateDevices()
-        // .then(function(devices) {
-        // devices.forEach(function(device) {
-        //     console.log(device.kind + ": " + device.label +
-        //                 " id = " + device.deviceId);
-        // });
-        // })
-        // .catch(function(err) {
-        // console.log(err.name + ": " + err.message);
-        // });
+        navigator.mediaDevices.enumerateDevices()
+        .then(function(devices) {
+        devices.forEach(function(device) {
+            console.log(device.kind + ": " + device.label +
+                        " id = " + device.deviceId);
+        });
+        })
+        .catch(function(err) {
+        console.log(err.name + ": " + err.message);
+        });
 
         // to edit device Id after setting up camera on HTX laptop
         navigator.mediaDevices
-            .getUserMedia({ video: { deviceId: "pkZEps+1ZGaXwd7ywMmbLG0W7DF1prKJsUeTVFeDTvM"
+            .getUserMedia({ video: { deviceId: "pkZEps+1ZGaXwd7ywMmbLG0W7DF1prKJsUeTVFeDTvM="
 , width: window.screen.width, height: window.screen.height } })
             .then(stream => {
             let video = videoRef.current;
@@ -47,7 +48,8 @@ const VideoFeed = () => {
     return (
         <div>
             <div className="section">
-                <video width="100%" ref={videoRef} />
+                {/* <video width="100%" ref={videoRef} /> */}
+                <img src={imageData} width="80%" />
             </div>
             <div className="section">
                 <button onClick={toggleCamera} >Turn Off Camera</button>
