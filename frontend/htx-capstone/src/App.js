@@ -10,7 +10,7 @@ function App() {
   return (
     <div className="App">
         <AppBar position="fixed">
-          <Toolbar variant="dense" sx={{backgroundColor:"#060028", height: "100%"}}>
+          <Toolbar variant="regular" sx={{backgroundColor:"#060028", height: "100%"}}>
             <Typography fontWeight={800}> 
               LISA ROBOT
             </Typography>

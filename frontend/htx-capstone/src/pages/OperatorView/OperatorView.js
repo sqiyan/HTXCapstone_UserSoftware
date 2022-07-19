@@ -115,11 +115,11 @@ const OperatorView = () => {
               <p>Last CO2 reading received: <span id="CO2"></span></p>
               <p>Last Sound reading received: <span id="mic"></span></p>
             </Grid>
-            <Grid className='section' container spacing={2} sx={{marginTop:"8px"}}>
-                <Grid item xs={7} sx={{fontWeight:"700", marginLeft:"-30px"}}>
+            <Grid className='section' container spacing={2} sx={{marginTop:"24px"}}>
+                <Grid item xs={9} sx={{fontWeight:"700", marginLeft:"-30px"}}>
                     <VideoFeed />
                 </Grid>
-                <Grid item xs={5} >
+                <Grid item xs={3} >
                     <DataCharts chartData={userData} CO2={CO2Data} Mic={micData} />
                 </Grid>
             </Grid>

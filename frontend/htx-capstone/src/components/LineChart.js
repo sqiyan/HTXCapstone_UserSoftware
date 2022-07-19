@@ -7,7 +7,7 @@ function LineChart({ chartData, newData }) {
     const chartRef = useRef(null);
 
     const options = {
-        aspectRatio: 1.2,
+        aspectRatio: 1.8,
         scales: {
           x: {
             ticks: {

@@ -9,7 +9,7 @@ const TopBar = ({CO2, Sound, Algo}) => {
             {/* <div className='section'>
                 Welcome to the LISA Robot. Below is the sensor readings and video feed from the robot.
             </div> */}
-            <Grid className='section' container spacing={2} sx={{marginTop:"48px", fontSize:"22px"}}>
+            <Grid className='section' container spacing={2} sx={{marginTop:"64px", fontSize:"36px"}}>
                 <Grid item xs={4} sx={{fontWeight:"700"}}>
                     {Algo ? !0 : "NO HUMAN"}
                 </Grid>
