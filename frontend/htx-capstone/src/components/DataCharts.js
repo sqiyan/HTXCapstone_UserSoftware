@@ -2,11 +2,11 @@ import React, { useEffect } from "react";
 import { Grid, Item } from '@mui/material';
 import LineChart from "./LineChart";
 
-const DataCharts = ({chartData, CO2})  => {
+const DataCharts = ({chartData, CO2, Mic})  => {
 
     useEffect(() => {
         // update the chart whenever a new datapoint is received
-        
+
 
     });
 
@@ -14,10 +14,10 @@ const DataCharts = ({chartData, CO2})  => {
         <div>
             <Grid container spacing={3} sx={{marginLeft:"-14px"}}>
                 <Grid item xs={6}>
-                    <LineChart chartData={chartData} />
+                    <LineChart chartData={chartData} newData={CO2} />
                 </Grid>
                 <Grid item xs={6}>
-                    <LineChart chartData={chartData} />
+                    <LineChart chartData={chartData} newData={Mic} />
                 </Grid>
                 <Grid item xs={6}>
                     <LineChart chartData={chartData} />

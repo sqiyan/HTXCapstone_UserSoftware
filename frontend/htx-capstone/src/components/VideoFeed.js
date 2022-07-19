@@ -2,9 +2,9 @@ import React, { useEffect, useRef } from "react";
 import './style.scss'
 
 
-const VideoFeed = ({imageData}) => {
+const VideoFeed = () => {
 
-    // DEPRECATED METHOD: now pulling image stream directly from ROS
+    // DEPRECATED METHOD: now pulling image stream directly from ROS web_video_server
     const videoRef = useRef(null);
     var videoFeed = null
 
@@ -15,16 +15,16 @@ const VideoFeed = ({imageData}) => {
     const getVideo = () => {
         
         // List cameras and microphones.
-        navigator.mediaDevices.enumerateDevices()
-        .then(function(devices) {
-        devices.forEach(function(device) {
-            console.log(device.kind + ": " + device.label +
-                        " id = " + device.deviceId);
-        });
-        })
-        .catch(function(err) {
-        console.log(err.name + ": " + err.message);
-        });
+        // navigator.mediaDevices.enumerateDevices()
+        // .then(function(devices) {
+        // devices.forEach(function(device) {
+        //     console.log(device.kind + ": " + device.label +
+        //                 " id = " + device.deviceId);
+        // });
+        // })
+        // .catch(function(err) {
+        // console.log(err.name + ": " + err.message);
+        // });
 
         // to edit device Id after setting up camera on HTX laptop
         navigator.mediaDevices
@@ -49,11 +49,11 @@ const VideoFeed = ({imageData}) => {
         <div>
             <div className="section">
                 {/* <video width="100%" ref={videoRef} /> */}
-                <img src={imageData} width="80%" />
+                <img src="http://0.0.0.0:8080/stream?topic=/camera/rgb/image_rect_color&type=mjpeg" width="80%" />
             </div>
-            <div className="section">
+            {/* <div className="section">
                 <button onClick={toggleCamera} >Turn Off Camera</button>
-            </div>
+            </div> */}
         </div>
     )
     

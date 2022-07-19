@@ -61,23 +61,26 @@ const OperatorView = () => {
     });
 
     CO2_listener.subscribe(function(m) {
-      console.log("CO2",m.header.stamp.secs)
-      setCO2Data(m.co2_equivalent)
+      console.log("CO2",m.iaq)
+      setCO2Data(m.iaq)
 
-      document.getElementById("CO2").innerHTML = m.co2_equivalent;
+      document.getElementById("CO2").innerHTML = m.iaq;
     });
 
     // UNCOMMEnt WHEN IMPLEMENTED
 
-    // var mic_listener = new ROSLIB.Topic({
-    //     ros : ros,
-    //     name : '/sensors/mic',
-    //     messageType : 'sensors/mic' // msg type to be updated after JK's implementation
-    // });
+    var mic_listener = new ROSLIB.Topic({
+        ros : ros,
+        name : '/sensors/audio',
+        messageType : 'sensors/Audio' // msg type to be updated after JK's implementation
+    });
   
-    // mic_listener.subscribe(function(m) {
-    //   document.getElementById("mic").innerHTML = m.data;
-    // });  
+    mic_listener.subscribe(function(m) {
+      console.log("Mic",m.audio_sample[0])
+      setMicData(m.audio_sample[0])
+
+      document.getElementById("mic").innerHTML = m.audio_sample[0];
+    });  
 
     // var algo_listener = new ROSLIB.Topic({
     //     ros : ros,
@@ -90,16 +93,16 @@ const OperatorView = () => {
     //   setAlgoData(m.data)
     // });  
     
-    var camera_listener = new ROSLIB.Topic({
-        ros : ros,
-        name : '/camera/rgb/image_raw/compressed',
-        messageType : 'sensor_msgs/CompressedImage'
-    });
+    // var camera_listener = new ROSLIB.Topic({
+    //     ros : ros,
+    //     name : '/camera/rgb/image_raw/compressed',
+    //     messageType : 'sensor_msgs/CompressedImage'
+    // });
 
-    camera_listener.subscribe(function(m) {
-      // console.log("imageData:", m)
-      setImageData("data:image/jpeg;base64,"+m.data)
-    });  
+    // camera_listener.subscribe(function(m) {
+    //   // console.log("imageData:", m)
+    //   setImageData("data:image/jpeg;base64,"+m.data)
+    // });  
     
 
     return(
@@ -114,10 +117,10 @@ const OperatorView = () => {
             </Grid>
             <Grid className='section' container spacing={2} sx={{marginTop:"8px"}}>
                 <Grid item xs={7} sx={{fontWeight:"700", marginLeft:"-30px"}}>
-                    <VideoFeed imageData={imageData}/>
+                    <VideoFeed />
                 </Grid>
                 <Grid item xs={5} >
-                    <DataCharts chartData={userData} CO2={CO2Data} />
+                    <DataCharts chartData={userData} CO2={CO2Data} Mic={micData} />
                 </Grid>
             </Grid>
             {/* <VideoFeed />

@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useEffect, useRef } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-function LineChart({ chartData }) {
+function LineChart({ chartData, newData }) {
+
+    const chartRef = useRef(null);
 
     const options = {
         aspectRatio: 1.2,
@@ -28,7 +30,19 @@ function LineChart({ chartData }) {
         }
       };
 
-    return <Line data={chartData} options={options}/>;
+      useEffect(() => {
+        // call this method whenever props newData is updated
+        const chart = chartRef.current;
+
+        chart.data.labels.push("test");
+        chart.data.datasets.forEach((dataset) => {
+            dataset.data.push(newData);
+        });
+        chart.update();
+        
+      }, newData);
+
+    return <Line ref={chartRef} data={chartData} options={options}/>;
 }
 
 export default LineChart;
