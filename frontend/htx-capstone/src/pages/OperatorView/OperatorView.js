@@ -4,6 +4,7 @@ import TopBar from "../../components/TopBar/TopBar"
 import KeyboardInput from '../../components/KeyboardInput'
 import DataCharts from '../../components/DataCharts'
 import LineChart from '../../components/LineChart'
+import NavigationGuide from '../../components/NavigationGuide'
 import { Grid, Item } from '@mui/material';
 import { UserData } from "../../Data";
 import ROSLIB from 'roslib';
@@ -19,24 +20,24 @@ const OperatorView = () => {
     const [imageData, setImageData] = useState(null)
     const [algoData, setAlgoData] = useState(0)
 
-    const [userData, setUserData] = useState({
-        // labels: UserData.map((data) => data.year),
-        datasets: [
-          {
-            label: "Users Gained",
-            // data: UserData.map((data) => data.userGain),
-            backgroundColor: [
-              "rgba(75,192,192,1)",
-              "#ecf0f1",
-              "#50AF95",
-              "#f3ba2f",
-              "#2a71d0",
-            ],
-            borderColor: "white",
-            borderWidth: 2,
-          },
-        ],
-      });
+    // const [userData, setUserData] = useState({
+    //     labels: [],
+    //     datasets: [
+    //       {
+    //         label: "Users Gained",
+    //         data: [],
+    //         backgroundColor: [
+    //           "rgba(75,192,192,1)",
+    //           "#ecf0f1",
+    //           "#50AF95",
+    //           "#f3ba2f",
+    //           "#2a71d0",
+    //         ],
+    //         borderColor: "white",
+    //         borderWidth: 2,
+    //       },
+    //     ],
+    //   });
 
     var ros = new ROSLIB.Ros({
       url : 'ws://localhost:9090'
@@ -118,9 +119,10 @@ const OperatorView = () => {
             <Grid className='section' container spacing={2} sx={{marginTop:"24px"}}>
                 <Grid item xs={9} sx={{fontWeight:"700", marginLeft:"-30px"}}>
                     <VideoFeed />
+                    <NavigationGuide />
                 </Grid>
                 <Grid item xs={3} >
-                    <DataCharts chartData={userData} CO2={CO2Data} Mic={micData} />
+                    <DataCharts CO2={CO2Data} Mic={micData} />
                 </Grid>
             </Grid>
             {/* <VideoFeed />

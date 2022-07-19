@@ -1,10 +1,28 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
-function LineChart({ chartData, newData }) {
 
-    const chartRef = useRef(null);
+function LineChart({ Dataset }) {
+
+    const [data, setData] = useState({
+      labels: [],
+      datasets: [
+        {
+          label: "Users Gained",
+          data: [],
+          backgroundColor: [
+            "rgba(75,192,192,1)",
+            "#ecf0f1",
+            "#50AF95",
+            "#f3ba2f",
+            "#2a71d0",
+          ],
+          borderColor: "white",
+          borderWidth: 2,
+        },
+      ],
+    })
 
     const options = {
         aspectRatio: 1.8,
@@ -32,17 +50,48 @@ function LineChart({ chartData, newData }) {
 
       useEffect(() => {
         // call this method whenever props newData is updated
-        const chart = chartRef.current;
+        // const chart = chartRef.current;
 
-        chart.data.labels.push("test");
-        chart.data.datasets.forEach((dataset) => {
-            dataset.data.push(newData);
-        });
-        chart.update();
+        setData({
+          labels: Dataset,
+          datasets: [
+            {
+              label: "Users Gained",
+              data: Dataset,
+              backgroundColor: [
+                "rgba(75,192,192,1)",
+                "#ecf0f1",
+                "#50AF95",
+                "#f3ba2f",
+                "#2a71d0",
+              ],
+              borderColor: "white",
+              borderWidth: 2,
+            },
+          ],
+        })
+
+        // var dataset = data.datasets.data
+        // dataset.push(newData)
+
+        // var labels = data[labels]
+        // const newLabel = "data"+newData
+        // labels.push(newLabel)
+
+        // data.datasets.data = dataset
+        // data.labels = labels
+
+        // setData(data)
+
+        // chart.data.labels.push("test");
+        // chart.data.datasets.forEach((dataset) => {
+        //     dataset.data.push(newData);
+        // });
+        // chart.update();
         
-      }, newData);
+      }, [Dataset]);
 
-    return <Line ref={chartRef} data={chartData} options={options}/>;
+    return <Line data={data} options={options}/>;
 }
 
 export default LineChart;

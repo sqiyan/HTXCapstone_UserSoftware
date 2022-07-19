@@ -1,21 +1,70 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Grid, Stack } from '@mui/material';
+import { Line } from "react-chartjs-2";
 import LineChart from "./LineChart";
 
 const DataCharts = ({chartData, CO2, Mic})  => {
 
+    const [CO2Dataset, setCO2Dataset] = useState([])
+    const [micDataset, setMicDataset] = useState([])
+
+    // const CO2ChartRef = useRef(null);
+    // const micChartRef = useRef(null);
+
+    // const options = {
+    //     aspectRatio: 1.8,
+    //     scales: {
+    //       x: {
+    //         ticks: {
+    //             color: 'white'
+    //         },
+    //         grid: {
+    //           color: '#000000',
+    //           borderColor: 'white'
+    //         }
+    //       },
+    //       y: {
+    //         ticks: {
+    //             color: 'white'
+    //         },
+    //         grid: {
+    //           color: '#000000',
+    //           borderColor: 'white'
+    //         }
+    //       }
+    //     }
+    //   };
+
     useEffect(() => {
-        // update the chart whenever a new datapoint is received
+        // update CO2 dataset whenever a new datapoint is received
+        let newCO2 = [...CO2Dataset]; // copying existing CO2 dataset
+        newCO2.push(CO2)
 
+        console.log("updated CO2 dataset", newCO2)
 
-    });
+        setCO2Dataset(newCO2);
+
+    }, [CO2]);
+
+    useEffect(() => {
+        // update Mic dataset whenever a new datapoint is received
+        // let newMic = [...micDataset]; // copying existing CO2 dataset
+        // newMic.push(Mic)
+
+        // setMicDataset(newMic);
+        setMicDataset([...micDataset, Mic]);
+
+    }, [Mic]);
 
     return(
         <div>
             <Stack container spacing={3} sx={{maxHeight:"600px"}}>
-                <LineChart chartData={chartData} />
-                <LineChart chartData={chartData} />
-                <LineChart chartData={chartData} />
+                {/* <Line ref={CO2ChartRef} data={chartData} options={options}/>
+                <Line ref={micChartRef} data={chartData} options={options}/>
+                <Line ref={micChartRef} data={chartData} options={options}/> */}
+                <LineChart Dataset={CO2Dataset} />
+                <LineChart Dataset={micDataset} />
+                <LineChart Dataset={CO2Dataset} />
             </Stack>
         </div>
     )
