@@ -40,6 +40,10 @@ const DataCharts = ({chartData, CO2, Mic})  => {
         let newCO2 = [...CO2Dataset]; // copying existing CO2 dataset
         newCO2.push(CO2)
 
+        if (newCO2.length > 30) {
+            newCO2.shift()
+        }
+
         console.log("updated CO2 dataset", newCO2)
 
         setCO2Dataset(newCO2);
@@ -48,11 +52,17 @@ const DataCharts = ({chartData, CO2, Mic})  => {
 
     useEffect(() => {
         // update Mic dataset whenever a new datapoint is received
-        // let newMic = [...micDataset]; // copying existing CO2 dataset
-        // newMic.push(Mic)
+        let newMic = [...micDataset]; // copying existing CO2 dataset
+        newMic.push(Mic)
 
-        // setMicDataset(newMic);
-        setMicDataset([...micDataset, Mic]);
+        if (newMic.length > 30) {
+            newMic.shift()
+        }
+
+        console.log("updated Mic dataset", newMic)
+
+        setMicDataset(newMic);
+        // setMicDataset([...micDataset, Mic]);
 
     }, [Mic]);
 

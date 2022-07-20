@@ -49,7 +49,9 @@ const VideoFeed = () => {
         <div>
             <div className="section">
                 {/* <video width="100%" ref={videoRef} /> */}
-                <img src="http://0.0.0.0:8080/stream?topic=/camera/rgb/image_rect_color&type=mjpeg" width="80%" />
+                <img src="http://0.0.0.0:8080/stream?topic=/sensors/thermal" width="80%" />
+                {/* http://0.0.0.0:8080/stream?topic=/sensors/thermal 
+                http://0.0.0.0:8080/stream?topic=/camera/rgb/image_rect_color&type=mjpeg */}
             </div>
             {/* <div className="section">
                 <button onClick={toggleCamera} >Turn Off Camera</button>
