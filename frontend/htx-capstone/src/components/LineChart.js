@@ -3,13 +3,13 @@ import { Line } from "react-chartjs-2";
 import { Chart as ChartJS } from "chart.js/auto";
 
 
-function LineChart({ Dataset }) {
+function LineChart({ Dataset, Label }) {
 
     const [data, setData] = useState({
       labels: [],
       datasets: [
         {
-          label: "Users Gained",
+          label: Label,
           data: [],
           backgroundColor: [
             "rgba(75,192,192,1)",
@@ -26,6 +26,7 @@ function LineChart({ Dataset }) {
 
     const options = {
         aspectRatio: 1.8,
+        animation: false,
         scales: {
           x: {
             ticks: {
@@ -53,11 +54,11 @@ function LineChart({ Dataset }) {
         // const chart = chartRef.current;
 
         setData({
-          labels: Dataset,
+          labels: Dataset[1],
           datasets: [
             {
-              label: "Users Gained",
-              data: Dataset,
+              label: Label,
+              data: Dataset[0],
               backgroundColor: [
                 "rgba(75,192,192,1)",
                 "#ecf0f1",

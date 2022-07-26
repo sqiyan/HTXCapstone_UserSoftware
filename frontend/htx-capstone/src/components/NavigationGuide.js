@@ -1,12 +1,14 @@
-import React from 'react'
-import ForwardIcon from '@mui/icons-material/ForwardIcon';
+import React, { forwardRef } from 'react'
+import ForwardIcon from '@mui/icons-material/Forward';
 
 const NavigationGuide = () => {
 
 
     return(
         <div>
-            {/* <ForwardIcon /> */}
+            {/* <Forward /> */}
+            {/* <ForwardIcon></ForwardIcon> */}
+            {/* <img src= "/forward.svg" /> */}
         </div>
     )
 

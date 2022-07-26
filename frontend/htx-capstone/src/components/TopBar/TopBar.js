@@ -4,6 +4,19 @@ import '../style.scss';
 
 const TopBar = ({CO2, Sound, Algo}) => {
 
+    const [indicator, setIndicator] = useState("NO HUMAN")
+
+    useEffect(() => {
+
+        if (Algo > 50){
+            setIndicator("HUMAN DETECTED")
+        }
+        else {
+            setIndicator("NO HUMAN")
+        }
+
+    }, [Algo]);
+
     return(
         <div className='top-bar'>
             {/* <div className='section'>
@@ -11,13 +24,13 @@ const TopBar = ({CO2, Sound, Algo}) => {
             </div> */}
             <Grid className='section' container spacing={2} sx={{marginTop:"64px", fontSize:"36px"}}>
                 <Grid item xs={4} sx={{fontWeight:"700"}}>
-                    {Algo ? !0 : "NO HUMAN"}
+                    {indicator}
                 </Grid>
                 <Grid item xs={4}>
-                    SOUND: {Sound}
+                    SOUND: {Sound ?? "NULL"}
                 </Grid>
                 <Grid item xs={4}>
-                    CO2: {CO2}
+                    CO2: {CO2 ?? "NULL"}
                 </Grid>
             </Grid>
         </div>

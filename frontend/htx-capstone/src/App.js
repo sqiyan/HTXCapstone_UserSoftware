@@ -12,7 +12,7 @@ function App() {
         <AppBar position="fixed">
           <Toolbar variant="regular" sx={{backgroundColor:"#060028", height: "100%"}}>
             <Typography fontWeight={800}> 
-              LISA ROBOT
+              SLEEK ROBOT
             </Typography>
             <Button color="inherit" sx={{marginLeft:"auto", fontWeight:"800"}}>
               Settings

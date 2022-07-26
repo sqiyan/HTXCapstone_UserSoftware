@@ -1,4 +1,5 @@
-import React, { useEffect, useRef } from "react";
+import React, { useEffect, useRef, useState } from "react";
+import Fab from '@mui/material/Fab';
 import './style.scss'
 
 
@@ -7,6 +8,8 @@ const VideoFeed = () => {
     // DEPRECATED METHOD: now pulling image stream directly from ROS web_video_server
     const videoRef = useRef(null);
     var videoFeed = null
+
+    const [filter, setFilter] = useState(false)
 
     useEffect(() => {
         getVideo();
@@ -45,11 +48,21 @@ const VideoFeed = () => {
         videoFeed.srcObject = null
     }
 
+    const toggleFilter = () => {
+        filter ? setFilter(false) : setFilter(true)
+    }
+
     return (
         <div>
             <div className="section">
                 {/* <video width="100%" ref={videoRef} /> */}
-                <img src="http://0.0.0.0:8080/stream?topic=/sensors/thermal" width="80%" />
+                <div style={{display: "flex", justifyContent: 'flex-end'}} >
+                    <Fab variant="extended" style={{ marginRight: "24px" }} onClick={toggleFilter} >
+                        THERMAL CAMERA FILTER
+                    </Fab>
+                </div>
+                {filter ? <img src="http://localhost:8080/stream?topic=/life_detection/body_preprocess&type=mjpeg" width="80%" /> : null}
+                <img src="http://0.0.0.0:8080/stream?topic=/camera/rgb/image_rect_color&type=mjpeg" width="80%" />
                 {/* http://0.0.0.0:8080/stream?topic=/sensors/thermal 
                 http://0.0.0.0:8080/stream?topic=/camera/rgb/image_rect_color&type=mjpeg */}
             </div>

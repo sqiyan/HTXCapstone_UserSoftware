@@ -6,8 +6,9 @@ import LineChart from "./LineChart";
 const DataCharts = ({chartData, CO2, Mic})  => {
 
     const [CO2Dataset, setCO2Dataset] = useState([])
+    const [CO2Labels, setCO2Labels] = useState([])
     const [micDataset, setMicDataset] = useState([])
-
+    const [micLabels, setMicLabels] = useState([])
     // const CO2ChartRef = useRef(null);
     // const micChartRef = useRef(null);
 
@@ -38,30 +39,57 @@ const DataCharts = ({chartData, CO2, Mic})  => {
     useEffect(() => {
         // update CO2 dataset whenever a new datapoint is received
         let newCO2 = [...CO2Dataset]; // copying existing CO2 dataset
-        newCO2.push(CO2)
+        if (CO2[0])
+        newCO2.push(CO2[0])
+
+        console.log("new co2 data added:", CO2[0])
+        console.log("new co2 label added:", CO2[1])
+
+        let newCO2Label = [...CO2Labels]
+
+        if (CO2[1] !== undefined) {
+            newCO2Label.push(CO2[1])
+        }
+
+        console.log("new co2 datalist:", newCO2)
+        console.log("new co2 label list:", newCO2Label)
 
         if (newCO2.length > 30) {
             newCO2.shift()
+            newCO2Label.shift()
         }
 
-        console.log("updated CO2 dataset", newCO2)
 
+        console.log("updated CO2 dataset", newCO2)
+        console.log("updated CO2 label dataset", newCO2Label)
         setCO2Dataset(newCO2);
+        setCO2Labels(newCO2Label);
 
     }, [CO2]);
+
+
 
     useEffect(() => {
         // update Mic dataset whenever a new datapoint is received
         let newMic = [...micDataset]; // copying existing CO2 dataset
-        newMic.push(Mic)
+        if (Mic[0] !== undefined) {
+            newMic.push(Mic[0])
+        }
+
+        let newMicLabel = [...micLabels]
+        if (Mic[1] !== undefined) {
+            newMicLabel.push(Mic[1])
+        }
 
         if (newMic.length > 30) {
             newMic.shift()
+            newMicLabel.shift()
         }
 
-        console.log("updated Mic dataset", newMic)
+        console.log("updated Mic dataset", (newMic,newMicLabel))
 
         setMicDataset(newMic);
+        setMicLabels(newMicLabel)
         // setMicDataset([...micDataset, Mic]);
 
     }, [Mic]);
@@ -72,9 +100,9 @@ const DataCharts = ({chartData, CO2, Mic})  => {
                 {/* <Line ref={CO2ChartRef} data={chartData} options={options}/>
                 <Line ref={micChartRef} data={chartData} options={options}/>
                 <Line ref={micChartRef} data={chartData} options={options}/> */}
-                <LineChart Dataset={CO2Dataset} />
-                <LineChart Dataset={micDataset} />
-                <LineChart Dataset={CO2Dataset} />
+                <LineChart Dataset={[CO2Dataset, CO2Labels]} Label="CO2 Prediction" />
+                <LineChart Dataset={[micDataset, micLabels]} Label="Microphone Prediction" />
+                <LineChart Dataset={[CO2Dataset, CO2Labels]} Label="Robot Information" />
             </Stack>
         </div>
     )
