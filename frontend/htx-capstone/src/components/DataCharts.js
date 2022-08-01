@@ -2,6 +2,7 @@ import React, { useEffect, useRef, useState } from "react";
 import { Grid, Stack } from '@mui/material';
 import { Line } from "react-chartjs-2";
 import LineChart from "./LineChart";
+import RobotInfoPanel from "./RobotInfoPanel";
 
 const DataCharts = ({chartData, CO2, Mic})  => {
 
@@ -39,8 +40,9 @@ const DataCharts = ({chartData, CO2, Mic})  => {
     useEffect(() => {
         // update CO2 dataset whenever a new datapoint is received
         let newCO2 = [...CO2Dataset]; // copying existing CO2 dataset
-        if (CO2[0])
-        newCO2.push(CO2[0])
+        if (CO2[0] !== undefined) {
+            newCO2.push(CO2[0])
+        }
 
         console.log("new co2 data added:", CO2[0])
         console.log("new co2 label added:", CO2[1])
@@ -102,7 +104,8 @@ const DataCharts = ({chartData, CO2, Mic})  => {
                 <Line ref={micChartRef} data={chartData} options={options}/> */}
                 <LineChart Dataset={[CO2Dataset, CO2Labels]} Label="CO2 Prediction" />
                 <LineChart Dataset={[micDataset, micLabels]} Label="Microphone Prediction" />
-                <LineChart Dataset={[CO2Dataset, CO2Labels]} Label="Robot Information" />
+                {/* <LineChart Dataset={[CO2Dataset, CO2Labels]} Label="Robot Information" /> */}
+                <RobotInfoPanel />
             </Stack>
         </div>
     )

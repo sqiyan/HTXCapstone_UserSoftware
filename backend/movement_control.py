@@ -12,5 +12,8 @@ def get(control):
         step = -step
     elif control == "pan right":
         movement = "pan"
+    elif control == "home srm":
+        movement = "home_srm"
+        step = True
 
     return (movement, step)

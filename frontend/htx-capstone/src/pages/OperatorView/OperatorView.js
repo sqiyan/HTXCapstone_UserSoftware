@@ -20,7 +20,9 @@ const OperatorView = () => {
 
     const [CO2RawData, setCO2RawData] = useState(0)
     const [micRawData, setMicRawData] = useState(0)
+    const [panData, setPanData] = useState(0)
 
+    const [navData, setNavData] = useState(0)
     const [CO2Data, setCO2Data] = useState([])
     const [micData, setMicData] = useState([])
     const [imageData, setImageData] = useState(null)
@@ -71,7 +73,7 @@ const OperatorView = () => {
     });
 
     CO2_raw_listener.subscribe(function(m) {
-      console.log("CO2 raw:",m.iaq)
+      // console.log("CO2 raw:",m.iaq)
       setCO2RawData(m.iaq)
     });
 
@@ -86,10 +88,10 @@ const OperatorView = () => {
     });
 
     CO2_listener.subscribe(function(m) {
-      console.log("CO2", m)
-      console.log("Smell probability", m.prediction)
+      // console.log("CO2", m)
+      // console.log("Smell probability", m.prediction)
 
-      co2_timestamp = m.header.stamp.secs%100+((m.header.stamp.nsecs/10000000)*0.01).toFixed(2)
+      co2_timestamp = m.header.stamp.secs%3600+(Math.round(m.header.stamp.nsecs/10000000)*0.01)
 
       setCO2Data([m.prediction*100, co2_timestamp])
 
@@ -115,7 +117,7 @@ const OperatorView = () => {
     var max = Math.max(...m.audio_sample)
 
     // for raw values, take difference between max and min microphone values
-    console.log("Mic raw:",max-min)
+    // console.log("Mic raw:",max-min)
     setMicRawData(max-min)
 
     // document.getElementById("mic").innerHTML = m.audio_sample[0];
@@ -134,7 +136,7 @@ const OperatorView = () => {
     // TO-DO Set fixed scale of 0 - 100
     mic_listener.subscribe(function(m) {
       scaled_prediction = m.prediction*100*2
-      console.log("Sound probability", scaled_prediction)
+      // console.log("Sound probability", scaled_prediction)
 
       if (scaled_prediction > 100) {
         scaled_prediction = 100
@@ -143,7 +145,7 @@ const OperatorView = () => {
         scaled_prediction = 0
       }
 
-      mic_timestamp = m.header.stamp.secs%100+((m.header.stamp.nsecs/10000000)*0.01).toFixed(2)
+      mic_timestamp = m.header.stamp.secs%3600+((m.header.stamp.nsecs/10000000)*0.01).toFixed(2) // modulo for an hour of data collection
       // cawin's change: mic_timestamp = Math.round(m.header.stamp.secs%100+(m.header.stamp.nsecs/10000000)*0.01,0)
 
       setMicData([scaled_prediction, mic_timestamp])
@@ -177,22 +179,51 @@ const OperatorView = () => {
     //   setImageData("data:image/jpeg;base64,"+m.data)
     // });  
     
+    var angle_listener = new ROSLIB.Topic({
+      ros : ros,
+      name : '/sensors/pan',
+      messageType : 'sensors/PanInfo'
+    });
+
+    angle_listener.subscribe(function(m) {
+      console.log("pan info:", m)
+
+      // pan_timestamp = m.header.stamp.secs%100+((m.header.stamp.nsecs/10000000)*0.01).toFixed(2)
+
+      setPanData(m.angle)
+    });
+
+    var nav_listener = new ROSLIB.Topic({
+      ros : ros,
+      name : '/life_detection/human_search',
+      messageType : 'sensors/PanInfo'
+    });
+
+    nav_listener.subscribe(function(m) {
+      console.log("nav info:", m)
+
+      // pan_timestamp = m.header.stamp.secs%100+((m.header.stamp.nsecs/10000000)*0.01).toFixed(2)
+
+      setNavData(m.angle)
+    });
+
 
     return(
         <div className='OperatorView__container'>
             <TopBar CO2={CO2RawData} Sound={micRawData} Algo={algoData}/>
             {/* should be algoData once ensemble model is done */}
             <KeyboardInput />
-            <NavigationGuide />
+            {/* <NavigationGuide /> */}
             {/* <img src={imageData} width={50} /> to be removed */}
             <Grid>
               {/* <p>Connection status: <span id="status"></span></p>
               <p>Last CO2 reading received: <span id="CO2"></span></p>
               <p>Last Sound reading received: <span id="mic"></span></p> */}
+              {/* <p>pan angle: {panData}</p> */}
             </Grid>
             <Grid className='section' container spacing={2} sx={{marginTop:"24px"}}>
                 <Grid item xs={9} sx={{fontWeight:"700", marginLeft:"-30px"}}>
-                    <VideoFeed />
+                    <VideoFeed robotAngle={panData} navigation={navData} />
                 </Grid>
                 <Grid item xs={3} >
                     <DataCharts CO2={CO2Data} Mic={micData} />

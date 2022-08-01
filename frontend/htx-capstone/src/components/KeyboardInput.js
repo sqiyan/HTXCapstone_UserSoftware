@@ -26,6 +26,10 @@ const KeyboardInput = () => {
             console.log("pan right")
             control = "pan right"
         }
+        else if (event.key == "h") {
+            console.log("home")
+            control = "home srm"
+        }
         
         if (control != "") {
             axios.post('http://127.0.0.1:8000/movement_control', {control: control})
@@ -47,7 +51,7 @@ const KeyboardInput = () => {
     return(
         <div>
             <div className='section'>
-                {key != null ? key+" has been pressed" : null }
+                {/* {key != null ? key+" has been pressed" : null } */}
             </div>
         </div>
     )

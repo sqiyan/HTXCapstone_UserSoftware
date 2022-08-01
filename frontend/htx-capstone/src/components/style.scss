@@ -17,3 +17,10 @@
 .top-bar {
     background-color: #2B17A8;
 }
+
+.overlay {
+    position: absolute;
+    width: 1150px;
+    margin-left: 100px;
+    z-index: 1;
+}
